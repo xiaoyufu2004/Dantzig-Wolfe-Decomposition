@@ -18,11 +18,9 @@ $$
 \begin{aligned}
 \min \quad   & \sum_{s=1}^S c_s^\top x_s \\
 \text{s.t.}\quad
-             & \sum_{s=1}^S A_s x_s \;\le\; b \quad \text{(耦合/系统约束)}\\
-             & B_s x_s \;\le\; d_s,\quad x_s \ge 0 \qquad (s=1,\dots,S).
+             & \sum_{s=1}^S A_s x_s \le b \quad \text{(耦合/系统约束)}\\
+             & B_s x_s \le d_s,\quad x_s \ge 0 \qquad (s=1,\dots,S).
 \end{aligned}
-\tag{P}
-\label{P}
 $$
 
 这里 \(A_s\) 只出现在少量系统级约束中，而 \(B_s\) 仅作用于各自子块。
@@ -42,18 +40,13 @@ $$
 
 把上式代回原问题，得到列形式主问题；实际只保留少量列形成 RMP：
 
-$$
-\begin{aligned}
-\min\quad
-& \sum_{s}\sum_{k} (c_s^\top v_s^k)\lambda_{sk}
-  + \sum_{s}\sum_{r} (c_s^\top d_s^r)w_{sr} \\
-\text{s.t.}\quad
-& \sum_{s}\sum_{k} (A_s v_s^k)\lambda_{sk}
-  + \sum_{s}\sum_{r} (A_s d_s^r)w_{sr} \le b,\\
-& \sum_{k}\lambda_{sk}=1 \ (s=1,\dots,S),\\
-& \lambda_{sk}\ge0,\ w_{sr}\ge0 .
-\end{aligned}
-$$
+$$\min\quad \sum_{s}\sum_{k} (c_s^\top v_s^k)\lambda_{sk}+ \sum_{s}\sum_{r} (c_s^\top d_s^r)w_{sr}$$
+
+$$\text{s.t.}\quad \sum_{s}\sum_{k} (A_s v_s^k)\lambda_{sk} + \sum_{s}\sum_{r} (A_s d_s^r)w_{sr} \le b,$$
+
+$$\sum_{k}\lambda_{sk}=1 \ (s=1,\dots,S),$$
+
+$$\lambda_{sk}\ge0,\ w_{sr}\ge0$$
 
 ## 对偶主问题（Dual RMP）
 把耦合约束写成 $\sum_s A_s x_s \le b$ ，其对偶为 
@@ -117,50 +110,38 @@ $$
 # 例子
 ## 问题描述
 **Maximize**
-$$
-\max\; 14x_1 + 8x_2 + 11x_3 + 7x_4
-$$
-$$
-2.1x_1 + 2.1x_2 + 0.75x_3 + 0.75x_4 \le 60
-$$
-$$
-0.5x_1 + 0.5x_2 + 0.5x_3 + 0.5x_4 \le 25
-$$
-$$
-x_1 + x_2 \ge 22
-$$
-$$
-x_1 \le 20
-$$
-$$
-x_3 + x_4 \ge 12
-$$
-$$
-x_3 \le 15
-$$
-$$
-x_4 \le 25
-$$
-$$
-x_1,x_2,x_3,x_4 \ge 0
-$$
+
+$$\max 14x_1 + 8x_2 + 11x_3 + 7x_4$$
+
+$$2.1x_1 + 2.1x_2 + 0.75x_3 + 0.75x_4 \le 60$$
+
+$$0.5x_1 + 0.5x_2 + 0.5x_3 + 0.5x_4 \le 25$$
+
+$$x_1 + x_2 \ge 22$$
+
+$$x_1 \le 20$$
+
+$$x_3 + x_4 \ge 12$$
+
+$$x_3 \le 15$$
+
+$$x_4 \le 25$$
+
+$$x_1,x_2,x_3,x_4 \ge 0$$
 
 将变量分为 $\{x_1,x_2\}$ 与 $\{x_3,x_4\}$ 两部分，对应两个子问题。令
-$$
-c_1=\begin{bmatrix}14\\[2pt]8\end{bmatrix},\quad
-c_2=\begin{bmatrix}11\\[2pt]7\end{bmatrix},
-$$
-$$
-A_1=\begin{bmatrix}2.1&2.1\\[2pt]0.5&0.5\end{bmatrix},\quad
-A_2=\begin{bmatrix}0.75&0.75\\[2pt]0.5&0.5\end{bmatrix},\quad
-b=\begin{bmatrix}60\\[2pt]25\end{bmatrix}.
-$$
+
+$$c_1={\[14,8\]}^T,\quad c_2={\[11,7\]}^T,$$
+
+$$A_1=\[ \[2.1,2.1\], \[0.5,0.5\] \],\quad A_2=\[ \[0.75,0.75\], \[0.5,0.5\] \],\quad b={\[60,25\]}^T.$$
 
 - 子问题1约束：
-  $$x_1+x_2\ge 22,\;\; x_1\le 20.$$
+
+$$x_1+x_2\ge 22, x_1\le 20.$$
 
 - 子问题2约束：
-  $$x_3+x_4\ge 12,\;\; x_3\le 15,\;\; x_4\le 25.$$
+
+$$x_3+x_4\ge 12, x_3\le 15, x_4\le 25.$$
   
 ## 手动求解
 ![](example1.png)
